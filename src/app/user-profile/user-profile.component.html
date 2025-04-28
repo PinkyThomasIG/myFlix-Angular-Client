@@ -1,0 +1,82 @@
+<div class="user-profile-container" *ngIf="user">
+  <h2>User Profile</h2>
+
+  <!-- Show user info or edit form -->
+  <div *ngIf="!showEditForm; else editForm">
+    <mat-card class="user-info-card">
+      <mat-card-title>{{ user.Username }}</mat-card-title>
+      <mat-card-content>
+        <p><strong>Email:</strong> {{ user.Email }}</p>
+        <p><strong>Birthday:</strong> {{ user.Birthday }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)="toggleEditForm()">
+          Edit Profile
+        </button>
+        <button mat-raised-button color="warn" (click)="deleteUser()">
+          Delete Account
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <!-- Edit form -->
+  <ng-template #editForm>
+    <form [formGroup]="editProfileForm" (ngSubmit)="editUser()">
+      <mat-card>
+        <mat-card-title>Edit Profile</mat-card-title>
+        <mat-card-content>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Username</mat-label>
+            <input matInput formControlName="Username" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="Password" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="Email" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Birthday</mat-label>
+            <input matInput type="date" formControlName="Birthday" />
+          </mat-form-field>
+        </mat-card-content>
+
+        <mat-card-actions>
+          <button mat-raised-button color="primary" type="submit">
+            Save Changes
+          </button>
+          <button mat-button (click)="toggleEditForm()">Cancel</button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+  </ng-template>
+
+  <!-- Favorite Movies Section -->
+  <div
+    class="favorites-section"
+    *ngIf="favoriteMovies && favoriteMovies.length > 0"
+  >
+    <h3>Favorite Movies</h3>
+    <div class="favorites-grid">
+      <mat-card *ngFor="let movie of favoriteMovies" class="movie-card">
+        <mat-card-header>
+          <mat-card-title>{{ movie.Title }}</mat-card-title>
+        </mat-card-header>
+        <img mat-card-image [src]="movie.ImagePath" alt="{{ movie.Title }}" />
+        <mat-card-content>
+          <p>{{ movie.Description }}</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+
+  <div *ngIf="favoriteMovies?.length === 0">
+    <p>You haven't added any favorite movies yet.</p>
+  </div>
+</div>

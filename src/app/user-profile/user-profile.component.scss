@@ -1,0 +1,15 @@
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.favorites-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.movie-card {
+  max-width: 300px;
+}
